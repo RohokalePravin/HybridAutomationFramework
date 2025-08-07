@@ -25,6 +25,7 @@ public class LoginPage {
     public void login(String email, String password) {
         try {
             log.info("🟡 Attempting login with email: {}", email);
+            Thread.sleep(1000);
             Helpers.waitAndClick(driver, loginBtn);
             Helpers.waitAndClick(driver, loginWithEmail);
 

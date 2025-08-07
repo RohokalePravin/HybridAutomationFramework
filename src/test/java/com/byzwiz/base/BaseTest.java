@@ -30,37 +30,54 @@ public class BaseTest {
         if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--start-maximized");
             options.addArguments("--disable-notifications");
+
             if (headless) {
                 options.addArguments("--headless=new");
+                options.addArguments("--window-size=1920,1080");
                 options.addArguments("--disable-gpu");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--remote-allow-origins=*");
+            } else {
+                options.addArguments("--start-maximized");
             }
+
             driver = new ChromeDriver(options);
 
         } else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions options = new FirefoxOptions();
             options.addPreference("dom.webnotifications.enabled", false);
+
             if (headless) {
                 options.addArguments("--headless");
+                options.addArguments("--width=1920");
+                options.addArguments("--height=1080");
             }
+
             driver = new FirefoxDriver(options);
-            driver.manage().window().maximize();
 
         } else if (browser.equalsIgnoreCase("edge")) {
             WebDriverManager.edgedriver().setup();
             EdgeOptions options = new EdgeOptions();
             options.addArguments("--disable-notifications");
+
             if (headless) {
                 options.addArguments("--headless=new");
+                options.addArguments("--window-size=1920,1080");
                 options.addArguments("--disable-gpu");
             }
+
             driver = new EdgeDriver(options);
-            driver.manage().window().maximize();
 
         } else {
             throw new RuntimeException("Unsupported browser in config: " + browser);
+        }
+
+        // Maximize only in non-headless mode (for consistency)
+        if (!headless) {
+            driver.manage().window().maximize();
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

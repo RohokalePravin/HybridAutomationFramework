@@ -8,48 +8,30 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.logging.log4j.Logger;
 
 import java.awt.AWTException;
-import java.io.File;
-import java.net.URL;
 import java.time.Duration;
 
 public class BusinessLastPage {
 
     WebDriver driver;
     WebDriverWait wait;
-    Logger logger = LoggerUtil.getLogger(BusinessLastPage.class); // ✅ Log4j2 Logger
+    Logger logger = LoggerUtil.getLogger(BusinessLastPage.class);
 
-    // ✅ Constructor
     public BusinessLastPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
-    // ✅ Load image paths from resources
-    String bannerImagePath = getFileFromResources("images/FoodBanner.jpg");
-    String logoImagePath = getFileFromResources("images/FoodBanner.jpg");
-
-    // ✅ Method to load file path from resources folder
-    private String getFileFromResources(String fileName) {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource(fileName);
-        if (resource == null) {
-            throw new IllegalArgumentException("File not found in resources: " + fileName);
-        } else {
-            return new File(resource.getFile()).getAbsolutePath();
-        }
-    }
-
-    // ✅ Locators
+    // Locators
     By bannerUploadButton = By.xpath("//form[@action='#']/div[1]/div/div[2]/button");
-    By checkIcon = By.xpath("//*[local-name()='svg' and @data-testid='CheckIcon']/ancestor::button");
     By logoUploadButton = By.xpath("//button[@class='MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-19hgowz']");
+    By fileInputSelector = By.cssSelector("input[type='file'].css-76knqi");
+    By checkIcon = By.xpath("//*[local-name()='svg' and @data-testid='CheckIcon']/ancestor::button");
     By selectAllDaysBtn = By.xpath("//button[normalize-space(.)='Select All']");
     By openTimeBtn = By.xpath("//span[starts-with(.,'Open')]");
     By createBusinessBtn = By.xpath("//button[normalize-space(.)='Create Business']");
     By continueBtn = By.xpath("//button[normalize-space(.)='Continue']");
     By pendingTaskText = By.xpath("//p[normalize-space(.)='Pending Tasks']");
 
-    // ✅ Declarations
     String[] declarationLabels = {
         "I am responsible for the quality of the food I prepare and sell from my Business.",
         "I will use the best and freshest ingredients for my food preparations.",
@@ -61,18 +43,41 @@ public class BusinessLastPage {
         "For my safety as per the platform rules, I will not share my personal details through images or text."
     };
 
-    // ✅ Upload Banner & Logo
+    // ✅ Upload image using JS to support headless mode
+    private void uploadFileToHiddenInput(String fileName) {
+        String imagePath = Helpers.getImagePath(fileName);
+        WebElement fileInput = wait.until(ExpectedConditions.presenceOfElementLocated(fileInputSelector));
+        ((JavascriptExecutor) driver).executeScript(
+            "arguments[0].style.display='block'; arguments[0].style.visibility='visible';", fileInput
+        );
+        fileInput.sendKeys(imagePath);
+    }
+
+    // ✅ Upload Banner & Logo (dual mode)
     public void uploadBannerAndLogo() throws InterruptedException, AWTException {
+        boolean isHeadless = Helpers.isRunningInJenkins() || Helpers.isHeadless(driver);
+
         logger.info("Uploading banner...");
-        Helpers.waitAndClick(driver, bannerUploadButton);
-        Helpers.uploadFileWithRobot(bannerImagePath);
+        if (isHeadless) {
+            logger.info("Headless detected: using sendKeys to file input for banner");
+            uploadFileToHiddenInput("Food Banner.jpg");
+        } else {
+            Helpers.waitAndClick(driver, bannerUploadButton);
+            Thread.sleep(1000);
+            Helpers.uploadFileWithRobot(Helpers.getImagePath("Food Banner.jpg"));
+        }
         Helpers.waitAndClick(driver, checkIcon);
         logger.info("Banner uploaded.");
 
         logger.info("Uploading logo...");
-        Helpers.waitAndClick(driver, logoUploadButton);
-        Thread.sleep(2000);
-        Helpers.uploadFileWithRobot(logoImagePath);
+        if (isHeadless) {
+            logger.info("Headless detected: using sendKeys to file input for logo");
+            uploadFileToHiddenInput("Food Banner.jpg");
+        } else {
+            Helpers.waitAndClick(driver, logoUploadButton);
+            Thread.sleep(1000);
+            Helpers.uploadFileWithRobot(Helpers.getImagePath("Food Banner.jpg"));
+        }
         Helpers.waitAndClick(driver, checkIcon);
         logger.info("Logo uploaded.");
     }

@@ -10,19 +10,19 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.net.URL;
 import java.time.Duration;
 
 public class Helpers {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
+    // ✅ Constructor
     public Helpers(WebDriver driver) {
-        this.driver = driver; // ✅ Correct
+        this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
-    // ✅ Click with scroll and retry
+    // ✅ Static click with retries + scroll
     public static void waitAndClick(WebDriver driver, By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         int attempts = 0;
@@ -46,7 +46,7 @@ public class Helpers {
         throw new RuntimeException("Unable to click after multiple attempts: " + locator.toString());
     }
 
-    // ✅ File Upload via Robot
+    // ✅ File Upload via Robot (only for local GUI mode)
     public static void uploadFileWithRobot(String filePath) throws AWTException {
         Robot robot = new Robot();
         robot.setAutoDelay(500);
@@ -70,13 +70,38 @@ public class Helpers {
         element.sendKeys(text);
     }
 
-    // ✅ Jenkins-compatible image path fetcher
-    public static String getImagePath(String imageName) {
-        ClassLoader classLoader = Helpers.class.getClassLoader();
-        URL resource = classLoader.getResource("images/" + imageName);
-        if (resource == null) {
-            throw new RuntimeException("Image not found in resources/images/: " + imageName);
-        }
-        return new File(resource.getFile()).getAbsolutePath();
+    // ✅ For resolving image path
+    public static String getImagePath(String fileName) {
+        return new File("src/test/resources/images/" + fileName).getAbsolutePath();
+    }
+
+    // ✅ Wait and return element
+    public static WebElement waitAndReturnElement(WebDriver driver, By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    // ✅ Check if running in Jenkins
+    public static boolean isRunningInJenkins() {
+        return System.getenv("JENKINS_HOME") != null;
+    }
+
+     // Detect headless mode from WebDriver
+    public static boolean isHeadless(WebDriver driver) {
+        Capabilities caps = ((HasCapabilities) driver).getCapabilities();
+        Object headlessProp = caps.getCapability("headless");
+        return headlessProp != null && headlessProp.toString().equalsIgnoreCase("true");
+    }
+
+
+    // ✅ Universal upload method using <input type="file">
+    public static void uploadFileToHiddenInput(WebDriver driver, By inputLocator, String fileName) {
+        WebElement input = waitAndReturnElement(driver, inputLocator);
+
+        // Force input visible using JavaScript if needed
+        ((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", input);
+
+        // Send absolute path to the input field
+        input.sendKeys(getImagePath(fileName));
     }
 }
