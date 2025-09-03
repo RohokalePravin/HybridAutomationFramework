@@ -4,6 +4,7 @@ import com.aventstack.extentreports.Status;
 import com.byzwiz.base.BaseTest;
 import com.byzwiz.reports.ExtentReportManager;
 import com.byzwiz.utils.ScreenshotUtil;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -24,37 +25,32 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestStart(ITestResult result) {
         ExtentReportManager.createTest(result.getMethod().getMethodName());
-        ExtentReportManager.getTest().log(Status.INFO, "Test Started: " + result.getMethod().getMethodName());
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        ExtentReportManager.getTest().log(Status.PASS, "✅ Test Passed");
+        ExtentReportManager.getTest().log(Status.PASS, "Test passed");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        String testName = result.getMethod().getMethodName();
-        ScreenshotUtil.captureScreenshot(BaseTest.getDriver(), testName);
-        ExtentReportManager.getTest().log(Status.FAIL,
-                "❌ Test Failed: " + result.getThrowable().getMessage());
+        WebDriver driver = BaseTest.getDriver();
+        ExtentReportManager.getTest().log(Status.FAIL, "Test failed: " + result.getThrowable());
+
+        if (driver != null) {
+            String screenshotPath = ScreenshotUtil.captureScreenshot(driver, result.getName());
+            if (screenshotPath != null) {
+                try {
+                    ExtentReportManager.getTest().addScreenCaptureFromPath(screenshotPath);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        Throwable skipReason = result.getThrowable();
-        ExtentReportManager.getTest().log(Status.SKIP,
-                "⚠️ Test Skipped" + (skipReason != null ? ": " + skipReason.getMessage() : ""));
-    }
-
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-        ExtentReportManager.getTest().log(Status.WARNING,
-                "⚠️ Test failed but within success percentage.");
-    }
-
-    @Override
-    public void onTestFailedWithTimeout(ITestResult result) {
-        onTestFailure(result);
+        ExtentReportManager.getTest().log(Status.SKIP, "Test skipped");
     }
 }

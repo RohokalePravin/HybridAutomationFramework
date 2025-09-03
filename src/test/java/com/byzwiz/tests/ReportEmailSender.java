@@ -7,7 +7,8 @@ public class ReportEmailSender {
 
 	@AfterSuite
 	public void sendReport() {
-	    EmailSender.sendExtentReport("C:\\Users\\Pravin\\autoScript\\ByzWizFramework\\test-output\\ExtentReport.html");
+		EmailSender
+				.sendExtentReport("C:\\Users\\Pravin\\autoScript\\automationframework\\test-output\\ExtentReport.html");
 	}
 
 }

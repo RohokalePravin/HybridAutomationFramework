@@ -9,41 +9,10 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">RegressionSuite</th></tr>
-<tr><td><a href="#t0">SellerE2EFlow</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num attn">1</td><td class="num">130,873</td><td></td><td></td></tr>
+<tr><td><a href="#t0">SellerE2EFlow</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">10,453</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">RegressionSuite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">SellerE2EFlow &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.byzwiz.tests.FreshFoodOutlet</td><td><a href="#m0">freshFoodOutletFlow</a></td><td rowspan="1">1754547552189</td><td rowspan="1">62492</td></tr><tr><th colspan="4">SellerE2EFlow &#8212; retried</th></tr><tr class="retriedeven"><td rowspan="1">com.byzwiz.tests.FreshFoodOutlet</td><td><a href="#m1">freshFoodOutletFlow</a></td><td rowspan="1">1754547487247</td><td rowspan="1">63690</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">RegressionSuite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">SellerE2EFlow &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">com.byzwiz.tests.Login</td><td><a href="#m0">testSuccessfulLogin</a></td><td rowspan="1">1756897614274</td><td rowspan="1">7959</td></tr></tbody>
 </table>
-<h2>SellerE2EFlow</h2><h3 id="m0">com.byzwiz.tests.FreshFoodOutlet#freshFoodOutletFlow</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th><th>Parameter #5</th><th>Parameter #6</th><th>Parameter #7</th><th>Parameter #8</th><th>Parameter #9</th></tr><tr class="param stripe"><td>pravin.rohokale@byzwiz.com</td><td>Pravin@123</td><td>no</td><td>no</td><td>302, C1 misty moors</td><td>Kad nagar, Undri</td><td>411060</td><td>Home</td><td>true</td></tr><tr><th colspan="9">Exception</th></tr><tr><td colspan="9"><div class="stacktrace">java.lang.RuntimeException: Click failed for locator: By.xpath: //*[local-name()=&apos;svg&apos; and @data-testid=&apos;CheckIcon&apos;]/ancestor::button
-	at com.byzwiz.utils.Helpers.waitAndClick(Helpers.java:43)
-	at com.byzwiz.pages.BusinessLastPage.uploadBannerAndLogo(BusinessLastPage.java:69)
-	at com.byzwiz.tests.FreshFoodOutlet.freshFoodOutletFlow(FreshFoodOutlet.java:48)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //*[local-name()=&apos;svg&apos; and @data-testid=&apos;CheckIcon&apos;]/ancestor::button (tried for 30 second(s) with 500 milliseconds interval)
-Build info: version: &apos;4.21.0&apos;, revision: &apos;79ed462ef4&apos;
-System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.6&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 138.0.7204.184, chrome: {chromedriverVersion: 138.0.7204.183 (e90faf484dd..., userDataDir: C:\Users\Pravin\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59629}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59629/devtoo..., se:cdpVersion: 138.0.7204.184, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 94e5379f1edd2c2923267b9f5b3cc5db
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-	at com.byzwiz.utils.Helpers.waitAndClick(Helpers.java:31)
-	... 30 more
-... Removed 27 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">com.byzwiz.tests.FreshFoodOutlet#freshFoodOutletFlow</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th><th>Parameter #5</th><th>Parameter #6</th><th>Parameter #7</th><th>Parameter #8</th><th>Parameter #9</th></tr><tr class="param stripe"><td>pravin.rohokale@byzwiz.com</td><td>Pravin@123</td><td>no</td><td>no</td><td>302, C1 misty moors</td><td>Kad nagar, Undri</td><td>411060</td><td>Home</td><td>true</td></tr><tr><th colspan="9">Exception</th></tr><tr><td colspan="9"><div class="stacktrace">java.lang.RuntimeException: Click failed for locator: By.xpath: //*[local-name()=&apos;svg&apos; and @data-testid=&apos;CheckIcon&apos;]/ancestor::button
-	at com.byzwiz.utils.Helpers.waitAndClick(Helpers.java:43)
-	at com.byzwiz.pages.BusinessLastPage.uploadBannerAndLogo(BusinessLastPage.java:69)
-	at com.byzwiz.tests.FreshFoodOutlet.freshFoodOutletFlow(FreshFoodOutlet.java:48)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //*[local-name()=&apos;svg&apos; and @data-testid=&apos;CheckIcon&apos;]/ancestor::button (tried for 30 second(s) with 500 milliseconds interval)
-Build info: version: &apos;4.21.0&apos;, revision: &apos;79ed462ef4&apos;
-System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.6&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 138.0.7204.184, chrome: {chromedriverVersion: 138.0.7204.183 (e90faf484dd..., userDataDir: C:\Users\Pravin\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59532}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59532/devtoo..., se:cdpVersion: 138.0.7204.184, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: c5f50303ced048271ec51658348b4b60
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-	at com.byzwiz.utils.Helpers.waitAndClick(Helpers.java:31)
-	... 30 more
-... Removed 27 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>SellerE2EFlow</h2><h3 id="m0">com.byzwiz.tests.Login#testSuccessfulLogin</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr><tr class="param stripe"><td>Kad Nagar Undri</td><td>8390289030</td><td>1234</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

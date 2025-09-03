@@ -1,17 +1,18 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="RegressionSuite" verbose="1" parallel="none">
 
-    <!-- ✅ ExtentReports + Retry Analyzer Listener -->
+    <!-- ✅ ExtentReports + Retry Analyzer-->
     <listeners>
-        <listener class-name="com.byzwiz.listeners.TestListener"/>
+        <listener class-name="com.byzwiz.listeners.TestListener" />
     </listeners>
 
     <test name="SellerE2EFlow">
         <classes>
-            <!-- ✅ Add your actual test classes here -->
-            <class name="com.byzwiz.tests.FreshFoodOutlet"/>
-            <class name="com.byzwiz.tests.ReportEmailSender"/>
+             <!-- Fresh Food Inventory -->
+            <class name="com.byzwiz.tests.Login"/>
+             
+            <class name="com.byzwiz.tests.ReportEmailSender" />
+            
         </classes>
     </test>
-
 </suite>

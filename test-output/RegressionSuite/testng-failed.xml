@@ -6,13 +6,15 @@
   </listeners>
   <test thread-count="5" name="SellerE2EFlow(failed)">
     <classes>
-      <class name="com.byzwiz.tests.FreshFoodOutlet">
+      <class name="com.byzwiz.tests.Login">
         <methods>
-          <include name="freshFoodOutletFlow" invocation-numbers="0 0"/>
           <include name="tearDown"/>
+          <include name="testSuccessfulLogin" invocation-numbers="0"/>
+          <include name="afterSuite"/>
           <include name="setUp"/>
+          <include name="beforeSuite"/>
         </methods>
-      </class> <!-- com.byzwiz.tests.FreshFoodOutlet -->
+      </class> <!-- com.byzwiz.tests.Login -->
     </classes>
   </test> <!-- SellerE2EFlow(failed) -->
 </suite> <!-- Failed suite [RegressionSuite] -->
